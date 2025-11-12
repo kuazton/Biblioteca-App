@@ -1,0 +1,235 @@
+html {
+  font-size: 14px;
+  position: relative;
+  min-height: 100dvh;
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+}
+
+:root {
+  --main-action-button-color: #faa938;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+a{
+  text-decoration: none;
+}
+a.nav-link{
+  width: 100%;
+}
+
+hr{
+  color: #9799a6;
+  display: flex;
+}
+.btn-action-color{
+  border-radius: 7px;
+}
+.btn-action-color:hover{
+  background-color: var(--main-action-button-color);
+}
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+body {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: row;
+}
+
+#FatherMainContainer{
+  flex: 1;
+  display: flex;
+
+}
+
+main{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.table-responsive{
+  width: 100%;
+}
+section#Mainsection{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+header{
+  font-weight: 600;
+  font-size: large;
+}
+
+header>a{
+  color: #2b33ca;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+/* Estilos de tablas */
+th.th-title{
+  color: #6b7280;
+}
+
+/*Estilos header*/
+#main-navbar{
+  padding: 16px 16px 0px;
+}
+
+/*Estilos menú de navegación*/
+/*Estilos menú*/
+#MenuContainer>div>ul{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  list-style: none;
+  width: 100%;
+  gap: 5px;
+  padding: 0px;
+  transition: all 0.3s ease;
+}
+#MenuContainer>div>ul>li{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 32px;
+  border-radius: 10px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+#MenuContainer>div>ul>li>a{
+  padding: 0px 0px 0px 16px;
+}
+#MenuContainer>div>ul>li:hover{
+  background-color: #303250;
+}
+div#MenuTitle{
+  display: flex;
+  justify-content: space-between;
+  color: #d3d7deb3;
+  font-weight: 600;
+  font-size: .85rem;
+  padding: 12px 16px 0px;
+  transition: all 0.15s ease;
+  overflow: hidden;
+  white-space: nowrap;
+}
+div#MenuOptions{
+  padding-top: 16px;
+}
+input#menuToggle, label#TransparentToggle{
+  display: none;
+}
+label[for="menuToggle"]{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0);
+  width: 28px;
+  height: 28px;
+  padding: 0px;
+  border-radius: 6px;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+label[for="menuToggle"]:hover{
+  background-color: #faa938;
+  transform: scale(1.05);
+}
+label[for="menuToggle"]:active {
+  transform: scale(0.95);
+}
+div#MenuContainer{
+  background-color: #20223c;
+  width: 255px;
+  min-height: 100dvh;
+  transition: all 0.3s ease;
+  padding: 0px 8px;
+}
+input#menuToggle:checked ~ div#MenuContainer>div#MenuTitle {
+  height: 0px;
+  padding: 0px;
+}
+input#menuToggle:checked ~ div#MenuContainer {
+  width: 45px;
+}
+input#menuToggle:checked ~ div#MenuContainer>div>ul>li>a>span {
+  display: none;
+}
+input#menuToggle:checked ~ div#MenuContainer>div>ul {
+  align-items: center;
+  padding: 0px
+}
+input#menuToggle:checked ~ div#MenuContainer>div>ul>li {
+  width: 28px;
+  height: 28px;
+}
+input#menuToggle:checked ~ #MenuContainer>div>ul>li>a{
+  padding: 0px;
+}
+#MenuContainer>div>ul>li>a>i{
+  color: #dcdfe4;
+  padding: 5px;
+}
+#MenuContainer>div>ul>li>a>span{
+  color: #dcdfe4;
+  padding-left: 5px;
+}
+/*Estilos home/Index*/
+#IndexContainer{
+  column-gap: 55px;
+  flex: 1 1;
+  max-width: 42rem;
+}
+
+#CircleIndex{
+  aspect-ratio: 1 / 1;
+  width: 96px;
+  display: grid;
+  justify-content: center;
+  place-items: center;
+  color: white;
+  background: #503FB0;
+  background: linear-gradient(135deg, rgba(80, 63, 176, 1) 0%, rgba(221, 96, 52, 1) 100%);
+  margin-bottom: 24px;
+}
+
+#IndexTitle{
+  font-weight: 700;
+  margin-bottom: 16px;
+  background: linear-gradient(90deg, rgba(80, 63, 176, 1) 0%, rgba(221, 96, 52, 1) 100%);
+  color: transparent;
+  background-clip: text;
+}
+
+#IndexParagraph{
+  color: #626784;
+  font-size: 1.25rem;
+}
+
+/*Tablas categoría*/
+td>div#CategoriaTable{
+  background-color: hsl(217 91% 20%);
+}
+
+/*Footer*/
+footer{
+  line-height: 60px;
+}

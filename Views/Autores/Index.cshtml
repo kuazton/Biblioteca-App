@@ -1,0 +1,81 @@
+@model CRUD.Models.ViewModels.PaginacionResultado<CRUD.Models.Autor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <!-- ✅ MENSAJES DE ÉXITO/ERROR -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-times-circle"></i> @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- ✅ HEADER CON TÍTULO Y BOTÓN CREAR -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">
+            <i class="fas fa-pen"></i> Gestión de Autores
+        </h2>
+        <a asp-action="Create" class="btn btn-success btn-lg">
+            <i class="fas fa-plus"></i> Nuevo Autor
+        </a>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th class="fw-medium th-title" scope="col">Nombre</th>
+                <th class="fw-medium th-title" scope="col">Apellido</th>
+                <th class="fw-medium th-title" scope="col">Edad</th>
+                <th class="fw-medium th-title" scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Datos) {
+                <tr>
+                    <td scope="row" class="fw-medium">@item.Nombre</td>
+                    <td>@item.Apellido</td>
+                    <td>@item.Edad</td>
+                    <td class="text-center">
+                        <!-- ✅ BOTONES DE ACCIÓN -->
+                        <div class="btn-group" role="group" aria-label="Acciones">
+                            <!-- Botón Ver Detalles -->
+                            <a asp-action="Details" asp-route-id="@item.Id" 
+                                class="btn btn-sm btn-action-color" 
+                                title="Ver detalles">
+                                <i class="fa-regular fa-eye"></i>
+                            </a>
+                            
+                            <!-- Botón Editar -->
+                            <a asp-action="Edit" asp-route-id="@item.Id" 
+                                class="btn btn-sm btn-action-color" 
+                                title="Editar autor">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </a>
+                            
+                            <!-- Botón Eliminar -->
+                            <a asp-action="Delete" asp-route-id="@item.Id" 
+                                class="btn btn-sm btn-action-color" 
+                                title="Eliminar autor">
+                                <i class="fa-regular fa-trash-can text-danger"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

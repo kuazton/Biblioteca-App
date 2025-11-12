@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CRUD</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/CRUD.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="manifest" href="/manifest.json">
+    <!-- HTMX CDN -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <!-- Alpine.js CDN -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Evita parpadeo inicial de Alpine -->
+    <style>[x-cloak] { display: none !important; }</style>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(() => console.log('Service Worker registrado'))
+                .catch(err => console.error('Error registrando Service Worker', err));
+        }
+    </script>
+</head>
+<body>
+    <input type="checkbox" id="menuToggle" checked>
+    <div id="MenuContainer">
+        <div id="MenuTitle">
+            Menú de Navegación
+        </div>
+        <div id="MenuOptions">
+            <ul class="list-group">
+                <li class="nav-item ">
+                    <a class="nav-link" asp-controller="Home" asp-action="Index" title="Inicio">
+                        <i class="fa-solid fa-home"></i> 
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                @if(User.Identity != null && User.Identity.IsAuthenticated){
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Libros" asp-action="Index" title="Libros">
+                            <i class="fa-solid fa-book-open"></i>
+                            <span>Libros</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Editoriales" asp-action="Index" title="Editoriales">
+                            <i class="fa-solid fa-building"></i>
+                            <span>Editoriales</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Existencias" asp-action="Index" title="Existencias">
+                            <i class="fa-solid fa-boxes"></i>
+                            <span>Existencias</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Prestamos" asp-action="Index" title="Prestamos">
+                            <i class="fa-solid fa-handshake"></i>
+                            <span>Prestamos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Categorias" asp-action="Index" title="Categorías">
+                            <i class="fa-solid fa-tags"></i>
+                            <span>Categorías</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Autores" asp-action="Index" title="Autores">
+                            <i class="fa-solid fa-pen"></i>
+                            <span>Autores</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"  asp-area="Identity" asp-page="/Account/Manage/Index" title="Cerrar sesión">
+                            <i class="fa-solid fa-gear"></i>
+                            <span>Editar datos personales</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="Identity" asp-page="/Account/Logout" title="Cerrar sesión">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            <span>Cerrar sesión</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="Identity" asp-page="/Account/Login" title="Iniciar sesión">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            <span>Iniciar sesión</span>
+                        </a>
+                    </li>
+                }
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Home" asp-action="Privacy" title="Privacy">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>Privacy</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <hr>
+    <section id="Mainsection">
+        <header id="main-navbar" class="d-flex align-items-center">
+            <label for="menuToggle">
+                <i class="fa-solid fa-bars"></i>
+            </label>
+            <a asp-controller="Home" asp-action="Index">
+                Sistema de biblioteca
+            </a>
+        </header>
+        <div id="FatherMainContainer" class="container">
+            <main role="main" class="pb-3 
+            ">
+                @RenderBody()
+            </main>
+        </div>
+    </section>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

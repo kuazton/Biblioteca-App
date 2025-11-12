@@ -1,0 +1,30 @@
+@model CRUD.Models.Existencia
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Existencia</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-6">
+            @Html.DisplayNameFor(model => model.Libro)
+        </dt>
+        <dd class = "col-6">
+            @Html.DisplayFor(model => model.Libro!.Titulo)
+        </dd>
+        <dt class = "col-6">
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </dt>
+        <dd class = "col-6">
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

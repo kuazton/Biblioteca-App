@@ -1,0 +1,76 @@
+# .gitignore for ASP.NET Core, Visual Studio, and common tools
+
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+.history/
+
+# Rider
+.idea/
+*.sln.iml
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Database
+*.db
+*.sqlite
+*.mdf
+*.ldf
+
+# Publish
+publish/
+
+# npm & node
+node_modules/
+
+# Environment & secrets
+.env
+.env.*
+secrets.json
+appsettings.Development.json
+appsettings.Local.json
+
+# Others
+wwwroot/lib/
+
+# Test results
+TestResults/
+
+# JetBrains Rider
+.idea/
+
+# Recycle Bin used by VSCode
+$RECYCLE.BIN/
+
+# Backup files
+*~
+*.bak
+*.tmp
+
+# Python (if any scripts)
+__pycache__/
+*.pyc
+
+# Ignore coverage reports
+coverage/
+*.lcov
+
+# Ignore VS Code notebook checkpoints
+.ipynb_checkpoints/
