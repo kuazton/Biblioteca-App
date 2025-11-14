@@ -5,7 +5,7 @@ namespace CRUD.Services.Interfaces
 {
     public interface IPrestamoService
     {
-        public Task<PaginacionResultado<Prestamo>> GetAllAsync(int page);
+    public Task<PaginacionResultado<Prestamo>> GetAllAsync(int page, string? filter = null);
         public Task<Prestamo?> GetByIdAsync(int id);
         public Task<Prestamo> CreateAsync(Prestamo prestamo);
         public Task<Prestamo> UpdateAsync(Prestamo prestamo);

@@ -31,81 +31,21 @@
     </div>
 </div>
 
-<div class="table-responsive">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th class="fw-medium th-title" scope="col">Estado</th>
-                <th class="fw-medium th-title" scope="col">Inicio</th>
-                <th class="fw-medium th-title" scope="col">Fin</th>
-                <th class="fw-medium th-title" scope="col">Multa</th>
-                <th class="fw-medium th-title" scope="col">Cliente</th>
-                <th class="fw-medium th-title" scope="col">Libro</th>
-                <th class="fw-medium th-title" scope="col">Empleado</th>
-                <th class="fw-medium th-title" scope="col">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Datos) {
-                <tr>
-                    <td scope="row">
-                        @if (item.Estado == CRUD.Models.Prestamo.EstadoPrestamo.Activo)
-                        {
-                            <span class="badge bg-success">@item.Estado</span>
-                        }
-                        else if (item.Estado == CRUD.Models.Prestamo.EstadoPrestamo.Retrasado)
-                        {
-                            <span class="badge bg-danger">@item.Estado</span>
-                        }
-                        else if (item.Estado == CRUD.Models.Prestamo.EstadoPrestamo.Devuelto)
-                        {
-                            <span class="badge bg-info">@item.Estado</span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-secondary">@item.Estado</span>
-                        }
-                    </td>
-                    <td>@item.InicPrestamo.ToString("dd/MM/yyyy")</td>
-                    <td>@item.FinPrestamo.ToString("dd/MM/yyyy")</td>
-                    <td>
-                        @if (item.Multa > 0)
-                        {
-                            <span class="text-danger fw-bold">$@item.Multa</span>
-                        }
-                        else
-                        {
-                            <span class="text-muted">$0.00</span>
-                        }
-                    </td>
-                    <td>@item.Cliente?.UserName</td>
-                    <td>@item.Libro?.Titulo</td>
-                    <td>@item.Empleado?.UserName</td>
-                    <td class="text-center">
-                        <div class="btn-group" role="group" aria-label="Acciones">
-                            <a asp-action="Details" asp-route-id="@item.Id" 
-                                class="btn btn-sm btn-action-color" 
-                                title="Ver detalles">
-                                <i class="fa-regular fa-eye"></i>
-                            </a>
-                            <a asp-action="Edit" asp-route-id="@item.Id" 
-                                class="btn btn-sm btn-action-color" 
-                                title="Editar préstamo">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" 
-                                class="btn btn-sm btn-action-color" 
-                                title="Eliminar préstamo">
-                                <i class="fa-regular fa-trash-can text-danger"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="w-100 shadow p-3 m-3 rounded-4">
+    <input 
+        type="text"
+        name="filter"
+        id="busqueda-prestamos"
+        placeholder="Buscar por cliente, libro o empleado..."
+        class="form-control bg-body-tertiary rounded-3 border-0"
+        hx-get="Prestamos/Index" 
+        hx-target="#table-prestamos" 
+        hx-trigger="keyup changed delay:300ms"
+        autocomplete="off"
+        value="@Context.Request.Query["filter"]"
+    />
 </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div id="table-prestamos" class="table-responsive">
+    @await Html.PartialAsync("_TablaPrestamos", Model)
+</div>
+

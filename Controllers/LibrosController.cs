@@ -26,6 +26,9 @@ namespace CRUD.Controllers
         public async Task<IActionResult> Index(int page, string? filter = null)
         {
             var resultado = await _LibroService.GetAllAsync(page, filter ?? string.Empty);
+            if (Request.Headers["HX-Request"] == "true")
+                return PartialView("_TablaLibros", resultado);
+            
             return View(resultado);
         }
 

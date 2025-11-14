@@ -7,14 +7,11 @@ public static class ExistenciasSeeder
     {
         if (!context.Existencias.Any())
         {
-            var existencias = new List<Existencia>
+            var existencias = new List<Existencia>();
+            for (int i = 1; i <= 15; i++)
             {
-                new Existencia { LibroId = 1, Cantidad = 10 },
-                new Existencia { LibroId = 2, Cantidad = 8 },
-                new Existencia { LibroId = 3, Cantidad = 5 },
-                new Existencia { LibroId = 4, Cantidad = 7 },
-                new Existencia { LibroId = 5, Cantidad = 6 }
-            };
+                existencias.Add(new Existencia { LibroId = i, Cantidad = 5 + (i % 7) });
+            }
             context.Existencias.AddRange(existencias);
             await context.SaveChangesAsync();
         }

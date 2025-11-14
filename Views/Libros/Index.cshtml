@@ -34,168 +34,18 @@
 </div>
 <div class="w-100 shadow p-3 m-3 rounded-4">
     <input 
-        type="text" 
-        name="filter" 
-        id="busqueda" 
+        type="text"
+        name="filter"
+        id="busqueda"
         placeholder="Buscar por título..."
         class="form-control bg-body-tertiary rounded-3 border-0"
         hx-get="Libros/Index" 
         hx-target="#table-libros" 
         hx-trigger="keyup changed delay:300ms"
         autocomplete="off"
+        value="@Context.Request.Query["filter"]"
     />
 </div>
 <div id="table-libros" class="table-responsive">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th class="fw-medium th-title" scope="col">
-                    Título
-                </th>
-                <th class="fw-medium th-title" scope="col">
-                    Autor
-                </th>
-                <th class="fw-medium th-title" scope="col">
-                    Categoría
-                </th>
-                <th class="fw-medium th-title" scope="col">
-                    Acciones
-                </th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach(var item in Model.Datos){
-                <tr>
-                    <td scope="row" class="fw-medium">
-                        @item.Titulo
-                    </td>
-                    <td>
-                        @item.Autor?.Nombre @item.Autor?.Apellido
-                    </td>
-                    <td>
-                        <div id="CategoriaTable" class="rounded-pill fw-semibold text-center text-light">
-                            @item.Categoria?.Nombre
-                        </div>
-                    </td>
-                    <td class="text-center">
-                        <!-- ✅ BOTONES DE ACCIÓN -->
-                        <div class="btn-group" role="group" aria-label="Acciones">
-                            <!-- Botón Ver Detalles -->
-                            <a asp-action="Details" asp-route-id="@item.Id" 
-                                class="btn btn-sm btn-action-color" 
-                                title="Ver detalles">
-                                <i class="fa-regular fa-eye"></i>
-                            </a>
-                            
-                            <!-- Botón Editar -->
-                            <a asp-action="Edit" asp-route-id="@item.Id" 
-                                class="btn btn-sm btn-action-color" 
-                                title="Editar libro">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </a>
-                            
-                            <!-- Botón Eliminar -->
-                            <a asp-action="Delete" asp-route-id="@item.Id" 
-                                class="btn btn-sm btn-action-color" 
-                                title="Eliminar libro">
-                                <i class="fa-regular fa-trash-can text-danger"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    @await Html.PartialAsync("_TablaLibros", Model)
 </div>
-<nav aria-label="Navegación de páginas" class="mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <p class="text-muted mb-0">
-            Mostrando página @Model.PaginaActual de @Model.TotalPaginas 
-            (@Model.TotalRegistros registros totales)
-        </p>
-    </div>
-    
-    @if (Model.TotalPaginas > 1)
-    {
-        <ul class="pagination justify-content-center">
-            <!-- Botón Anterior -->
-            <li class="page-item @(Model.TienePaginaAnterior ? "" : "disabled")">
-                @if (Model.TienePaginaAnterior)
-                {
-                    <a class="page-link" asp-action="Index" asp-route-page="@(Model.PaginaActual - 1)" aria-label="Anterior">
-                        <span aria-hidden="true">&laquo;</span> 
-                    </a>
-                }
-                else
-                {
-                    <span class="page-link" aria-label="Anterior">
-                        <span aria-hidden="true">&laquo;</span> 
-                    </span>
-                }
-            </li>
-
-            <!-- Números de páginas -->
-            @{
-                int startPage = Math.Max(1, Model.PaginaActual - 2);
-                int endPage = Math.Min(Model.TotalPaginas, Model.PaginaActual + 2);
-            }
-
-            @if (startPage > 1)
-            {
-                <li class="page-item">
-                    <a class="page-link" asp-action="Index" asp-route-page="1">1</a>
-                </li>
-                @if (startPage > 2)
-                {
-                    <li class="page-item disabled">
-                        <span class="page-link">...</span>
-                    </li>
-                }
-            }
-
-            @for (int i = startPage; i <= endPage; i++)
-            {
-                <li class="page-item @(i == Model.PaginaActual ? "active" : "")">
-                    @if (i == Model.PaginaActual)
-                    {
-                        <span class="page-link">@i</span>
-                    }
-                    else
-                    {
-                        <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
-                    }
-                </li>
-            }
-
-            @if (endPage < Model.TotalPaginas)
-            {
-                @if (endPage < Model.TotalPaginas - 1)
-                {
-                    <li class="page-item disabled">
-                        <span class="page-link">...</span>
-                    </li>
-                }
-                <li class="page-item">
-                    <a class="page-link" asp-action="Index" asp-route-page="@Model.TotalPaginas">@Model.TotalPaginas</a>
-                </li>
-            }
-
-            <!-- Botón Siguiente -->
-            <li class="page-item @(Model.TienePaginaSiguiente ? "" : "disabled")">
-                @if (Model.TienePaginaSiguiente)
-                {
-                    <a class="page-link" asp-action="Index" asp-route-page="@(Model.PaginaActual + 1)" aria-label="Siguiente">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                }
-                else
-                {
-                    <span class="page-link" aria-label="Siguiente">
-                        <span aria-hidden="true">&raquo;</span>
-                    </span>
-                }
-            </li>
-        </ul>
-    }
-</nav>

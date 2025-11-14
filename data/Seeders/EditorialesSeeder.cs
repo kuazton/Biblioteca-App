@@ -13,7 +13,17 @@ public static class EditorialesSeeder
                 new Editorial { Nombre = "Alfaguara" },
                 new Editorial { Nombre = "Santillana" },
                 new Editorial { Nombre = "Norma" },
-                new Editorial { Nombre = "Random House" }
+                new Editorial { Nombre = "Random House" },
+                new Editorial { Nombre = "Anagrama" },
+                new Editorial { Nombre = "Siruela" },
+                new Editorial { Nombre = "Tusquets" },
+                new Editorial { Nombre = "Seix Barral" },
+                new Editorial { Nombre = "Edhasa" },
+                new Editorial { Nombre = "Salamandra" },
+                new Editorial { Nombre = "Acantilado" },
+                new Editorial { Nombre = "Debolsillo" },
+                new Editorial { Nombre = "Lumen" },
+                new Editorial { Nombre = "Alianza" }
             };
             context.Editoriales.AddRange(editoriales);
             await context.SaveChangesAsync();

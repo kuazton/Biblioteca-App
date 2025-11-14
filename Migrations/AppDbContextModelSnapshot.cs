@@ -211,7 +211,6 @@ namespace CRUD.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("EmpleadoId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Estado")
@@ -315,11 +314,9 @@ namespace CRUD.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderDisplayName")
@@ -357,11 +354,9 @@ namespace CRUD.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
@@ -425,8 +420,7 @@ namespace CRUD.Migrations
                     b.HasOne("CRUD.Models.ApplicationUser", "Empleado")
                         .WithMany("PrestamosEmpleado")
                         .HasForeignKey("EmpleadoId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("CRUD.Models.Libro", "Libro")
                         .WithMany("Prestamos")

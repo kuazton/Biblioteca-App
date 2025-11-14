@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Identity;
 
 
 var builder = WebApplication.CreateBuilder(args);
+// Requerir emails únicos en Identity
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -22,11 +27,18 @@ builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddScoped<IEditorialService, EditorialService>();
 builder.Services.AddScoped<IExistenciasService, ExistenciasService>();
 builder.Services.AddScoped<IPrestamoService, PrestamoService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();
+
+// NOTA: Para que UserName y Email sean siempre iguales al crear usuarios,
+// asegúrate de que en el registro y en los seeders asignes:
+// UserName = model.Email, Email = model.Email
+// Ejemplo:
+// var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
 
 var app = builder.Build();
 
@@ -41,7 +53,6 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
-
 
 app.UseRouting();
 

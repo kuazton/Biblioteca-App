@@ -86,11 +86,7 @@
                         </div>
                         
                         <div class="mb-3">
-                            <label asp-for="EmpleadoId" class="form-label fw-semibold"></label>
-                            <select asp-for="EmpleadoId" class="form-control" asp-items="ViewBag.EmpleadoId">
-                                <option value="">-- Seleccionar Empleado --</option>
-                            </select>
-                            <span asp-validation-for="EmpleadoId" class="text-danger"></span>
+                            <input asp-for="EmpleadoId" type="hidden" />
                         </div>
                         
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">

@@ -13,7 +13,17 @@ public static class CategoriasSeeder
                 new Categoria { Nombre = "No ficción", Descripcion = "Libros basados en hechos reales" },
                 new Categoria { Nombre = "Ciencia", Descripcion = "Libros de divulgación y estudio científico" },
                 new Categoria { Nombre = "Historia", Descripcion = "Libros sobre hechos históricos" },
-                new Categoria { Nombre = "Infantil", Descripcion = "Libros para niños" }
+                new Categoria { Nombre = "Infantil", Descripcion = "Libros para niños" },
+                new Categoria { Nombre = "Biografía", Descripcion = "Vida de personas destacadas" },
+                new Categoria { Nombre = "Poesía", Descripcion = "Obras poéticas" },
+                new Categoria { Nombre = "Teatro", Descripcion = "Obras teatrales" },
+                new Categoria { Nombre = "Ensayo", Descripcion = "Textos argumentativos" },
+                new Categoria { Nombre = "Fantasía", Descripcion = "Mundos imaginarios y mágicos" },
+                new Categoria { Nombre = "Aventura", Descripcion = "Relatos de acción y exploración" },
+                new Categoria { Nombre = "Romance", Descripcion = "Historias de amor" },
+                new Categoria { Nombre = "Misterio", Descripcion = "Relatos de intriga y suspense" },
+                new Categoria { Nombre = "Autoayuda", Descripcion = "Desarrollo personal y motivación" },
+                new Categoria { Nombre = "Tecnología", Descripcion = "Libros sobre avances tecnológicos" }
             };
             context.Categorias.AddRange(categorias);
             await context.SaveChangesAsync();

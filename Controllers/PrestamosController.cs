@@ -8,24 +8,32 @@ using Microsoft.EntityFrameworkCore;
 using CRUD.Data;
 using CRUD.Models;
 using CRUD.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CRUD.Controllers
 {
+    [Authorize(Roles = "Admin,Empleado")]
     public class PrestamosController : Controller
-    {
+    {        
         private readonly AppDbContext _context;
         private readonly IPrestamoService _prestamoService;
+        private readonly IUsuarioService _usuarioService;
 
-        public PrestamosController(AppDbContext context, IPrestamoService prestamoService)
+        public PrestamosController(AppDbContext context, IPrestamoService prestamoService, IUsuarioService usuarioService)
         {
             _context = context;
             _prestamoService = prestamoService;
+            _usuarioService = usuarioService;
         }
 
         // GET: Prestamos
-        public async Task<IActionResult> Index(int page)
+        public async Task<IActionResult> Index(int page, string? filter = null)
         {
-            var resultado = await _prestamoService.GetAllAsync(page);
+            var resultado = await _prestamoService.GetAllAsync(page, filter ?? string.Empty);
+            if (Request.Headers["HX-Request"] == "true")
+            {
+                return PartialView("_TablaPrestamos", resultado);
+            }
             return View(resultado);
         }
 
@@ -39,11 +47,10 @@ namespace CRUD.Controllers
         }
 
         // GET: Prestamos/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["ClienteId"] = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(_context.Users, "Id", "UserName");
-            ViewData["EmpleadoId"] = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(_context.Users, "Id", "UserName");
-            ViewData["LibroId"] = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(_context.Libros, "Id", "Titulo");
+            ViewData["ClienteId"] = new SelectList(await _usuarioService.GetUsuariosClienteAsync(), "Id", "UserName");
+            ViewData["LibroId"] = new SelectList(_context.Libros, "Id", "Titulo");
             return View();
         }
 
@@ -52,8 +59,10 @@ namespace CRUD.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Estado,InicPrestamo,FinPrestamo,Multa,ClienteId,EmpleadoId,LibroId")] Prestamo prestamo)
+        public async Task<IActionResult> Create([Bind("Id,Estado,InicPrestamo,FinPrestamo,Multa,ClienteId,LibroId")] Prestamo prestamo)
         {
+            // Forzar el id del empleado autenticado
+            prestamo.EmpleadoId = _usuarioService.GetUsuarioId();
             if (ModelState.IsValid)
             {
                 try
@@ -67,9 +76,8 @@ namespace CRUD.Controllers
                     ViewData["ErrorMessage"] = "Ocurrió un error inesperado al crear el préstamo.";
                 }
             }
-            ViewData["ClienteId"] = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(_context.Users, "Id", "UserName", prestamo.ClienteId);
-            ViewData["EmpleadoId"] = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(_context.Users, "Id", "UserName", prestamo.EmpleadoId);
-            ViewData["LibroId"] = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(_context.Libros, "Id", "Titulo", prestamo.LibroId);
+            ViewData["ClienteId"] = new SelectList(_context.Users, "Id", "UserName", prestamo.ClienteId);
+            ViewData["LibroId"] = new SelectList(_context.Libros, "Id", "Titulo", prestamo.LibroId);
             return View(prestamo);
         }
 
@@ -79,9 +87,9 @@ namespace CRUD.Controllers
             if (id == null) return NotFound();
             var prestamo = await _prestamoService.GetByIdAsync(id.Value);
             if (prestamo == null) return NotFound();
-            ViewData["ClienteId"] = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(_context.Users, "Id", "UserName", prestamo.ClienteId);
-            ViewData["EmpleadoId"] = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(_context.Users, "Id", "UserName", prestamo.EmpleadoId);
-            ViewData["LibroId"] = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(_context.Libros, "Id", "Titulo", prestamo.LibroId);
+            ViewData["ClienteId"] = new SelectList(_context.Users, "Id", "UserName", prestamo.ClienteId);
+            ViewData["EmpleadoId"] = new SelectList(_context.Users, "Id", "UserName", prestamo.EmpleadoId);
+            ViewData["LibroId"] = new SelectList(_context.Libros, "Id", "Titulo", prestamo.LibroId);
             return View(prestamo);
         }
 
