@@ -1,48 +1,37 @@
 @model CRUD.Models.Libro
-
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle del libro";
+    var crudHeader = new CrudPageHeaderViewModel
+    {
+        Title = "Detalle del libro",
+        IconClass = "fa-book-open",
+        Subtitle = Model?.Titulo,
+        SecondaryAction = Model != null
+            ? new CrudHeaderActionLink { ActionName = "Edit", Text = "Editar", EntityId = Model.Id }
+            : null
+    };
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Libro</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Autor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Autor.Apellido)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Editorial)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Editorial.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Categoria)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Categoria.Descripcion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AnioPublicacion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AnioPublicacion)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="container-fluid">
+    <partial name="_CrudPageHeader" model="crudHeader" />
+    <div class="row justify-content-center">
+        <div class="crud-form-shell-wide">
+            <div class="card shadow-sm crud-card">
+                <div class="card-body">
+                    <dl class="row crud-dl mb-0">
+                        <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Titulo)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(m => m.Titulo)</dd>
+                        <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Autor)</dt>
+                        <dd class="col-sm-8">@Model?.Autor?.Nombre @Model?.Autor?.Apellido</dd>
+                        <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Editorial)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(m => m.Editorial!.Nombre)</dd>
+                        <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Categoria)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(m => m.Categoria!.Nombre)</dd>
+                        <dt class="col-sm-4">@Html.DisplayNameFor(m => m.AnioPublicacion)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(m => m.AnioPublicacion)</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

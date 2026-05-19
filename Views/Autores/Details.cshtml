@@ -1,36 +1,33 @@
 @model CRUD.Models.Autor
-
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle del autor";
+    var crudHeader = new CrudPageHeaderViewModel
+    {
+        Title = "Detalle del autor",
+        IconClass = "fa-pen",
+        Subtitle = Model != null ? $"{Model.Nombre} {Model.Apellido}" : null,
+        SecondaryAction = Model != null
+            ? new CrudHeaderActionLink { ActionName = "Edit", Text = "Editar", EntityId = Model.Id }
+            : null
+    };
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Autor</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Apellido)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Apellido)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Edad)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Edad)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="container-fluid">
+    <partial name="_CrudPageHeader" model="crudHeader" />
+    <div class="row justify-content-center">
+        <div class="crud-form-shell">
+            <div class="card shadow-sm crud-card">
+                <div class="card-body">
+                    <dl class="row crud-dl mb-0">
+                        <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Nombre)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(m => m.Nombre)</dd>
+                        <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Apellido)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(m => m.Apellido)</dd>
+                        <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Edad)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(m => m.Edad)</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

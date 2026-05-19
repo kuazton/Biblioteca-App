@@ -1,24 +1,21 @@
-﻿@page
+@page
 @model ResetAuthenticatorModel
 @{
-    ViewData["Title"] = "Restablecer clave de autenticador";
+    ViewData["Title"] = "Restablecer autenticador";
     ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
 
+<h2 class="crud-page-title mb-3"><i class="fa-solid fa-rotate me-2"></i>@ViewData["Title"]</h2>
 <partial name="_StatusMessage" for="StatusMessage" />
-<h3>@ViewData["Title"]</h3>
-<div class="alert alert-warning" role="alert">
-    <p>
-        <span class="glyphicon glyphicon-warning-sign"></span>
-    <strong>Si restableces tu clave de autenticador, tu aplicación autenticadora no funcionará hasta que la vuelvas a configurar.</strong>
-    </p>
-    <p>
-    Este proceso desactiva la autenticación en dos pasos (2FA) hasta que verifiques tu aplicación autenticadora.
-    Si no completas la configuración de tu aplicación autenticadora, podrías perder acceso a tu cuenta.
-    </p>
-</div>
-<div>
-    <form id="reset-authenticator-form" method="post">
-    <button id="reset-authenticator-button" class="btn btn-danger" type="submit">Restablecer clave de autenticador</button>
-    </form>
+<div class="card shadow-sm crud-card border-warning">
+    <div class="card-body">
+        <div class="alert alert-warning" role="alert">
+            <p class="mb-2"><strong>Si restableces la clave, el autenticador dejará de funcionar hasta que lo configures de nuevo.</strong></p>
+            <p class="mb-0 small">Se desactiva 2FA hasta completar la nueva configuración. Si no la terminas, podrías perder acceso.</p>
+        </div>
+        <form id="reset-authenticator-form" method="post" class="d-flex flex-wrap gap-2">
+            <a asp-page="./TwoFactorAuthentication" class="btn btn-outline-secondary btn-lg">Cancelar</a>
+            <button id="reset-authenticator-button" class="btn btn-danger btn-lg" type="submit">Restablecer clave de autenticador</button>
+        </form>
+    </div>
 </div>

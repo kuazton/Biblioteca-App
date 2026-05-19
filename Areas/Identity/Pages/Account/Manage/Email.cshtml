@@ -1,41 +1,50 @@
-﻿@page
+@page
 @model EmailModel
 @{
-    ViewData["Title"] = "Gestionar correo electrónico";
+    ViewData["Title"] = "Correo electrónico";
     ViewData["ActivePage"] = ManageNavPages.Email;
 }
 
-<h3>@ViewData["Title"]</h3>
+<h2 class="crud-page-title mb-3"><i class="fa-solid fa-envelope me-2"></i>@ViewData["Title"]</h2>
 <partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <form id="email-form" method="post">
-            <div asp-validation-summary="All" class="text-danger" role="alert"></div>
-            @if (Model.IsEmailConfirmed)
-            {
-                <div class="form-floating mb-3 input-group">
-                    <input asp-for="Email" class="form-control" placeholder="Por favor ingresa tu correo electrónico." disabled />
-                        <div class="input-group-append">
-                            <span class="h-100 input-group-text text-success font-weight-bold">✓</span>
+<div class="card shadow-sm crud-card">
+    <div class="card-body">
+        <div class="row justify-content-center">
+            <div class="crud-form-shell-wide">
+                <form id="email-form" method="post">
+                    <div asp-validation-summary="All" class="text-danger mb-3" role="alert"></div>
+                    @if (Model.IsEmailConfirmed)
+                    {
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label fw-semibold">Correo actual</label>
+                            <div class="input-group">
+                                <input asp-for="Email" class="form-control" placeholder="Correo electrónico" disabled />
+                                <span class="input-group-text text-success bg-success-subtle"><i class="fas fa-check"></i></span>
+                            </div>
                         </div>
-                    <label asp-for="Email" class="form-label"></label>
-                </div>
-            }
-            else
-            {
-                <div class="form-floating mb-3">
-                    <input asp-for="Email" class="form-control" placeholder="Please enter your email." disabled />
-                    <label asp-for="Email" class="form-label"></label>
-                    <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Enviar correo de verificación</button>
-                </div>
-            }
-            <div class="form-floating mb-3">
-                <input asp-for="Input.NewEmail" class="form-control" autocomplete="email" aria-required="true" placeholder="Por favor ingresa el nuevo correo electrónico." />
-                <label asp-for="Input.NewEmail" class="form-label"></label>
-                <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
+                    }
+                    else
+                    {
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label fw-semibold">Correo actual</label>
+                            <input asp-for="Email" class="form-control" disabled />
+                            <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link px-0 mt-1">Enviar correo de verificación</button>
+                        </div>
+                    }
+                    <div class="mb-3">
+                        <label asp-for="Input.NewEmail" class="form-label fw-semibold"></label>
+                        <input asp-for="Input.NewEmail" class="form-control" autocomplete="email" aria-required="true" placeholder="Nuevo correo electrónico" />
+                        <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary btn-lg">Volver al inicio</a>
+                        <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="btn btn-warning btn-lg">
+                            <i class="fas fa-paper-plane me-1"></i>Cambiar correo
+                        </button>
+                    </div>
+                </form>
             </div>
-            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="w-100 btn btn-lg btn-primary">Cambiar correo electrónico</button>
-        </form>
+        </div>
     </div>
 </div>
 

@@ -1,24 +1,29 @@
 @model CRUD.Models.Editorial
-
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle de la editorial";
+    var crudHeader = new CrudPageHeaderViewModel
+    {
+        Title = "Detalle de la editorial",
+        IconClass = "fa-building",
+        Subtitle = Model?.Nombre,
+        SecondaryAction = Model != null
+            ? new CrudHeaderActionLink { ActionName = "Edit", Text = "Editar", EntityId = Model.Id }
+            : null
+    };
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Editorial</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="container-fluid">
+    <partial name="_CrudPageHeader" model="crudHeader" />
+    <div class="row justify-content-center">
+        <div class="crud-form-shell">
+            <div class="card shadow-sm crud-card">
+                <div class="card-body">
+                    <dl class="row crud-dl mb-0">
+                        <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Nombre)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(m => m.Nombre)</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

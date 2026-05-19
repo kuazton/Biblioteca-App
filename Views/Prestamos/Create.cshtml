@@ -1,100 +1,63 @@
 @model CRUD.Models.Prestamo
-
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Nuevo préstamo";
+    var crudHeader = new CrudPageHeaderViewModel { Title = "Crear nuevo préstamo", IconClass = "fa-handshake" };
 }
 
 <div class="container-fluid">
-    <!-- ✅ MENSAJES DE ÉXITO/ERROR -->
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    }
-
-    @if (TempData["ErrorMessage"] != null)
-    {
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="fas fa-times-circle"></i> @TempData["ErrorMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    }
-
-    <!-- ✅ HEADER CON TÍTULO Y NAVEGACIÓN -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="mb-0">
-            <i class="fas fa-handshake"></i> Crear Nuevo Préstamo
-        </h2>
-        <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
-            <i class="fas fa-arrow-left"></i> Volver a la Lista
-        </a>
-    </div>
-
-    <!-- ✅ FORMULARIO SIN RESTRICCIONES DE ANCHO -->
+    <partial name="_CrudTempDataAlerts" />
+    <partial name="_CrudPageHeader" model="crudHeader" />
     <div class="row justify-content-center">
-        <div style="min-width: 300px; max-width: 500px;">
-            <div class="card shadow-sm">
+        <div class="crud-form-shell-wide">
+            <div class="card shadow-sm crud-card">
                 <div class="card-body">
                     <form asp-action="Create">
                         <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-                        
                         <div class="mb-3">
                             <label asp-for="Estado" class="form-label fw-semibold"></label>
-                            <select asp-for="Estado" class="form-control">
-                                <option value="">-- Seleccionar Estado --</option>
-                                <option value="Activo">Activo</option>
-                                <option value="Devuelto">Devuelto</option>
-                                <option value="Vencido">Vencido</option>
+                            <select asp-for="Estado" class="form-select" asp-items="Html.GetEnumSelectList<CRUD.Models.Prestamo.EstadoPrestamo>()">
+                                <option value="">-- Seleccionar estado --</option>
                             </select>
                             <span asp-validation-for="Estado" class="text-danger"></span>
                         </div>
-                        
                         <div class="mb-3">
                             <label asp-for="InicPrestamo" class="form-label fw-semibold"></label>
                             <input asp-for="InicPrestamo" type="date" class="form-control" />
                             <span asp-validation-for="InicPrestamo" class="text-danger"></span>
                         </div>
-                        
                         <div class="mb-3">
                             <label asp-for="FinPrestamo" class="form-label fw-semibold"></label>
                             <input asp-for="FinPrestamo" type="date" class="form-control" />
                             <span asp-validation-for="FinPrestamo" class="text-danger"></span>
                         </div>
-                        
                         <div class="mb-3">
                             <label asp-for="Multa" class="form-label fw-semibold"></label>
-                            <input asp-for="Multa" type="number" step="0.01" class="form-control" placeholder="0.00" />
+                            <input asp-for="Multa" type="number" min="0" step="1" class="form-control" placeholder="0" />
                             <span asp-validation-for="Multa" class="text-danger"></span>
                         </div>
-                        
                         <div class="mb-3">
                             <label asp-for="ClienteId" class="form-label fw-semibold"></label>
-                            <select asp-for="ClienteId" class="form-control" asp-items="ViewBag.ClienteId">
-                                <option value="">-- Seleccionar Cliente --</option>
+                            <select asp-for="ClienteId" class="form-select" asp-items="ViewBag.ClienteId">
+                                <option value="">-- Seleccionar cliente --</option>
                             </select>
                             <span asp-validation-for="ClienteId" class="text-danger"></span>
                         </div>
-                        
                         <div class="mb-3">
                             <label asp-for="LibroId" class="form-label fw-semibold"></label>
-                            <select asp-for="LibroId" class="form-control" asp-items="ViewBag.LibroId">
-                                <option value="">-- Seleccionar Libro --</option>
+                            <select asp-for="LibroId" class="form-select" asp-items="ViewBag.LibroId">
+                                <option value="">-- Seleccionar libro --</option>
                             </select>
                             <span asp-validation-for="LibroId" class="text-danger"></span>
                         </div>
-                        
                         <div class="mb-3">
                             <input asp-for="EmpleadoId" type="hidden" />
                         </div>
-                        
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <a asp-action="Index" class="btn btn-secondary me-md-2">
                                 <i class="fas fa-times"></i> Cancelar
                             </a>
                             <button type="submit" class="btn btn-success">
-                                <i class="fas fa-plus"></i> Crear Préstamo
+                                <i class="fas fa-plus"></i> Crear préstamo
                             </button>
                         </div>
                     </form>

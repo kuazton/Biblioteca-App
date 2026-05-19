@@ -233,3 +233,56 @@ td>div#CategoriaTable{
 footer{
   line-height: 60px;
 }
+
+/* CRUD: layout coherente */
+.crud-page-title {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.crud-form-shell {
+  min-width: 300px;
+  max-width: 500px;
+}
+
+.crud-form-shell-wide {
+  min-width: 300px;
+  max-width: 720px;
+}
+
+.crud-card {
+  border: none;
+  border-radius: 0.75rem;
+}
+
+.crud-dl dt {
+  color: #6b7280;
+  font-weight: 600;
+}
+
+/* Identity — gestión de cuenta */
+.identity-manage-layout {
+  align-self: stretch;
+  width: 100%;
+}
+
+.identity-manage-main-title {
+  font-weight: 600;
+  font-size: 1.35rem;
+}
+
+.identity-manage-nav-card .identity-manage-nav .nav-link {
+  border-radius: 0.5rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.identity-manage-nav-card .identity-manage-nav .nav-link:hover {
+  background-color: rgba(250, 169, 56, 0.15);
+  color: #1f2937;
+}
+
+.identity-manage-nav-card .identity-manage-nav .nav-link.active {
+  background-color: var(--main-action-button-color);
+  color: #1f2937;
+}

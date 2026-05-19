@@ -1,30 +1,31 @@
 @model CRUD.Models.Existencia
-
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle de la existencia";
+    var crudHeader = new CrudPageHeaderViewModel
+    {
+        Title = "Detalle de la existencia",
+        IconClass = "fa-boxes",
+        Subtitle = Model?.Libro?.Titulo,
+        SecondaryAction = Model != null
+            ? new CrudHeaderActionLink { ActionName = "Edit", Text = "Editar", EntityId = Model.Id }
+            : null
+    };
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Existencia</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-6">
-            @Html.DisplayNameFor(model => model.Libro)
-        </dt>
-        <dd class = "col-6">
-            @Html.DisplayFor(model => model.Libro!.Titulo)
-        </dd>
-        <dt class = "col-6">
-            @Html.DisplayNameFor(model => model.Cantidad)
-        </dt>
-        <dd class = "col-6">
-            @Html.DisplayFor(model => model.Cantidad)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="container-fluid">
+    <partial name="_CrudPageHeader" model="crudHeader" />
+    <div class="row justify-content-center">
+        <div class="crud-form-shell">
+            <div class="card shadow-sm crud-card">
+                <div class="card-body">
+                    <dl class="row crud-dl mb-0">
+                        <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Libro)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(m => m.Libro!.Titulo)</dd>
+                        <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Cantidad)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(m => m.Cantidad)</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

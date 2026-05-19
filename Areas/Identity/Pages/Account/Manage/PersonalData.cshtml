@@ -1,24 +1,28 @@
-﻿@page
+@page
 @model PersonalDataModel
 @{
     ViewData["Title"] = "Datos personales";
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
-<h3>@ViewData["Title"]</h3>
-
-<div class="row">
-    <div class="col-md-6">
-        <p>Tu cuenta contiene datos personales que nos has proporcionado. Esta página te permite descargar o eliminar esos datos.</p>
-        <p>
-            <strong>Eliminar estos datos eliminará tu cuenta permanentemente y no se podrá recuperar.</strong>
-        </p>
-        <form id="download-data" asp-page="DownloadPersonalData" method="post">
-            <button class="btn btn-primary" type="submit">Descargar</button>
-        </form>
-        <p>
-            <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger">Eliminar</a>
-        </p>
+<h2 class="crud-page-title mb-3"><i class="fa-solid fa-database me-2"></i>@ViewData["Title"]</h2>
+<div class="card shadow-sm crud-card">
+    <div class="card-body">
+        <p class="text-muted mb-3">Tu cuenta incluye datos que nos has proporcionado. Aquí puedes descargarlos o solicitar su eliminación.</p>
+        <div class="alert alert-warning" role="alert">
+            <i class="fa-solid fa-triangle-exclamation me-2"></i>
+            <strong>Eliminar estos datos cierra tu cuenta de forma permanente</strong> y no podrá recuperarse.
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            <form id="download-data" asp-page="DownloadPersonalData" method="post" class="d-inline">
+                <button class="btn btn-outline-secondary btn-lg" type="submit">
+                    <i class="fas fa-download me-1"></i>Descargar mis datos
+                </button>
+            </form>
+            <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger btn-lg">
+                <i class="fas fa-trash-can me-1"></i>Eliminar cuenta
+            </a>
+        </div>
     </div>
 </div>
 

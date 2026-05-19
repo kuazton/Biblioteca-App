@@ -1,52 +1,57 @@
 @model CRUD.Models.Libro
-
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar libro";
+    var crudHeader = new CrudPageHeaderViewModel { Title = "Editar libro", IconClass = "fa-pen-to-square" };
 }
 
-<h1>Edit</h1>
-
-<h4>Libro</h4>
-<hr />
-<div class="row">
-    <div class="">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Titulo" class="control-label"></label>
-                <input asp-for="Titulo" class="form-control" />
-                <span asp-validation-for="Titulo" class="text-danger"></span>
+<div class="container-fluid">
+    <partial name="_CrudTempDataAlerts" />
+    <partial name="_CrudPageHeader" model="crudHeader" />
+    <div class="row justify-content-center">
+        <div class="crud-form-shell">
+            <div class="card shadow-sm crud-card">
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="mb-3">
+                            <label asp-for="Titulo" class="form-label fw-semibold"></label>
+                            <input asp-for="Titulo" class="form-control" />
+                            <span asp-validation-for="Titulo" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="AutorId" class="form-label fw-semibold"></label>
+                            <select asp-for="AutorId" class="form-select" asp-items="ViewBag.AutorId"></select>
+                            <span asp-validation-for="AutorId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="EditorialId" class="form-label fw-semibold"></label>
+                            <select asp-for="EditorialId" class="form-select" asp-items="ViewBag.EditorialId"></select>
+                            <span asp-validation-for="EditorialId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="CategoriaId" class="form-label fw-semibold"></label>
+                            <select asp-for="CategoriaId" class="form-select" asp-items="ViewBag.CategoriaId"></select>
+                            <span asp-validation-for="CategoriaId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="AnioPublicacion" class="form-label fw-semibold"></label>
+                            <input asp-for="AnioPublicacion" class="form-control" />
+                            <span asp-validation-for="AnioPublicacion" class="text-danger"></span>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="Index" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-times"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-save"></i> Guardar cambios
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="AutorId" class="control-label"></label>
-                <select asp-for="AutorId" class="form-control" asp-items="ViewBag.AutorId"></select>
-                <span asp-validation-for="AutorId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EditorialId" class="control-label"></label>
-                <select asp-for="EditorialId" class="form-control" asp-items="ViewBag.EditorialId"></select>
-                <span asp-validation-for="EditorialId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoriaId" class="control-label"></label>
-                <select asp-for="CategoriaId" class="form-control" asp-items="ViewBag.CategoriaId"></select>
-                <span asp-validation-for="CategoriaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AnioPublicacion" class="control-label"></label>
-                <input asp-for="AnioPublicacion" class="form-control" />
-                <span asp-validation-for="AnioPublicacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

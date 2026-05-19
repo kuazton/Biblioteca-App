@@ -49,7 +49,7 @@ namespace CRUD.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido")] Autor autor)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Edad")] Autor autor)
         {
             if (ModelState.IsValid)
             {
@@ -81,7 +81,7 @@ namespace CRUD.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido")] Autor autor)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Edad")] Autor autor)
         {
             if (id != autor.Id) return NotFound();
             if (ModelState.IsValid)

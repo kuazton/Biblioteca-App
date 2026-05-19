@@ -1,0 +1,42 @@
+@model CRUD.Models.ViewModels.CrudPageHeaderViewModel
+<div class="crud-page-header d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+    <div>
+        <h2 class="mb-0 crud-page-title @(Model.TitleDanger ? "text-danger" : "")">
+            <i class="fa-solid @Model.IconClass me-2"></i>@Model.Title
+        </h2>
+        @if (!string.IsNullOrWhiteSpace(Model.Subtitle))
+        {
+            <p class="text-muted mb-0 mt-1">@Model.Subtitle</p>
+        }
+    </div>
+    <div class="d-flex align-items-center gap-2 flex-wrap">
+        @if (Model.SecondaryAction != null)
+        {
+            var a = Model.SecondaryAction;
+            if (!string.IsNullOrEmpty(a.ControllerName))
+            {
+                <a asp-action="@a.ActionName" asp-controller="@a.ControllerName" asp-route-id="@a.EntityId" class="@a.ButtonClass">
+                    <i class="fa-regular @a.IconClass me-1"></i>@a.Text
+                </a>
+            }
+            else
+            {
+                <a asp-action="@a.ActionName" asp-route-id="@a.EntityId" class="@a.ButtonClass">
+                    <i class="fa-regular @a.IconClass me-1"></i>@a.Text
+                </a>
+            }
+        }
+        @if (!string.IsNullOrEmpty(Model.BackController))
+        {
+            <a asp-action="@Model.BackAction" asp-controller="@Model.BackController" class="btn btn-outline-secondary btn-lg">
+                <i class="fas fa-arrow-left me-2"></i>Volver a la lista
+            </a>
+        }
+        else
+        {
+            <a asp-action="@Model.BackAction" class="btn btn-outline-secondary btn-lg">
+                <i class="fas fa-arrow-left me-2"></i>Volver a la lista
+            </a>
+        }
+    </div>
+</div>

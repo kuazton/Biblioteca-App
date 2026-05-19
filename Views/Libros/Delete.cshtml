@@ -1,51 +1,50 @@
 @model CRUD.Models.Libro
-
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar libro";
+    var crudHeader = new CrudPageHeaderViewModel
+    {
+        Title = "Eliminar libro",
+        IconClass = "fa-trash-can",
+        TitleDanger = true,
+        Subtitle = "¿Confirma que desea eliminar este libro?"
+    };
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Libro</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Autor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Autor.Apellido)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Editorial)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Editorial.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Categoria)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Categoria.Descripcion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AnioPublicacion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AnioPublicacion)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+<div class="container-fluid">
+    <partial name="_CrudPageHeader" model="crudHeader" />
+    <div class="row justify-content-center">
+        <div class="crud-form-shell-wide">
+            <div class="card shadow-sm crud-card border-danger">
+                <div class="card-body">
+                    <div class="alert alert-warning" role="alert">
+                        <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                        <strong>Atención.</strong> Esta acción no se puede deshacer.
+                    </div>
+                    <dl class="row crud-dl mb-0">
+                        <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Titulo)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(m => m.Titulo)</dd>
+                        <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Autor)</dt>
+                        <dd class="col-sm-8">@Model?.Autor?.Nombre @Model?.Autor?.Apellido</dd>
+                        <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Editorial)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(m => m.Editorial!.Nombre)</dd>
+                        <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Categoria)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(m => m.Categoria!.Nombre)</dd>
+                        <dt class="col-sm-4">@Html.DisplayNameFor(m => m.AnioPublicacion)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(m => m.AnioPublicacion)</dd>
+                    </dl>
+                    <form asp-action="Delete" class="mt-4">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="Index" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-times"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash-can"></i> Eliminar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

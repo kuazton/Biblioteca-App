@@ -32,7 +32,7 @@ Este proyecto es una aplicación web para la gestión de bibliotecas desarrollad
    ```
 
 3. **Configura la base de datos:**
-   - Por defecto usa SQLite. Puedes cambiar la cadena de conexión en `appsettings.json`.
+   - Por defecto usa SQL server. Puedes cambiar la cadena de conexión en `appsettings.json`.
    - Las migraciones y seeders se aplican automáticamente al iniciar la app.
 
 4. **Ejecuta la aplicación:**

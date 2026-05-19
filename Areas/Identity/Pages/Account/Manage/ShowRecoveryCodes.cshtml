@@ -1,25 +1,28 @@
-﻿@page
+@page
 @model ShowRecoveryCodesModel
 @{
     ViewData["Title"] = "Códigos de recuperación";
-    ViewData["ActivePage"] = "TwoFactorAuthentication";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
 
+<h2 class="crud-page-title mb-3"><i class="fa-solid fa-list-ol me-2"></i>@ViewData["Title"]</h2>
 <partial name="_StatusMessage" for="StatusMessage" />
-<h3>@ViewData["Title"]</h3>
-<div class="alert alert-warning" role="alert">
-    <p>
-    <strong>Guarda estos códigos en un lugar seguro.</strong>
-    </p>
-    <p>
-    Si pierdes tu dispositivo y no tienes los códigos de recuperación, perderás acceso a tu cuenta.
-    </p>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        @for (var row = 0; row < Model.RecoveryCodes.Length; row += 2)
-        {
-            <code class="recovery-code">@Model.RecoveryCodes[row]</code><text>&nbsp;</text><code class="recovery-code">@Model.RecoveryCodes[row + 1]</code><br />
-        }
+<div class="card shadow-sm crud-card">
+    <div class="card-body">
+        <div class="alert alert-warning" role="alert">
+            <p class="mb-2"><strong>Guarda estos códigos en un lugar seguro.</strong></p>
+            <p class="mb-0 small">Si pierdes el dispositivo y no tienes códigos de recuperación, podrías perder el acceso a la cuenta.</p>
+        </div>
+        <div class="recovery-codes-grid p-3 bg-body-secondary rounded-3 font-monospace">
+            @for (var row = 0; row < Model.RecoveryCodes.Length; row += 2)
+            {
+                <div class="mb-2">
+                    <code class="recovery-code">@Model.RecoveryCodes[row]</code>
+                    <text> </text>
+                    <code class="recovery-code">@Model.RecoveryCodes[row + 1]</code>
+                </div>
+            }
+        </div>
+        <a asp-page="./TwoFactorAuthentication" class="btn btn-outline-secondary btn-lg mt-4">Volver a seguridad</a>
     </div>
 </div>
